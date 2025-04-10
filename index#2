@@ -1,0 +1,17 @@
+<script>
+  // Custom image bounds (adjust if needed)
+  const imageBounds = [[0, 0], [1000, 1000]];
+
+  // Create the map with no default tile layer
+  const map = L.map('map', {
+    crs: L.CRS.Simple,
+    minZoom: -2,
+    maxZoom: 4
+  });
+
+  // Load your custom image as the background
+  const image = L.imageOverlay('iron-sands-map.png', imageBounds).addTo(map);
+  map.fitBounds(imageBounds);
+
+  // Add your markers, routes, etc. below...
+</script>
