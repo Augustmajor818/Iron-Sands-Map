@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Operation Iron Sands - Tactical Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    html, body, #map {
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([0, 0], 2); // Center & Zoom
+
+    // Base map layer (empty by default — can use custom image or tile)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 4,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // FACTION BASES
+    L.marker([25, -25], { title: "U.S. Main Base" }).addTo(map)
+      .bindPopup("🟦 U.S. Main Base<br>Spawn, Airfield, Vehicles");
+
+    L.marker([-25, 25], { title: "Rebel Faction Base" }).addTo(map)
+      .bindPopup("🟥 Middle Eastern Faction Base<br>Mountain stronghold");
+
+    // URBAN ZONE
+    L.circle([0, 0], {
+      radius: 300000,
+      color: "#555",
+      fillColor: "#777",
+      fillOpacity: 0.4
+    }).addTo(map).bindPopup("🏙️ Central City (CQB Hot Zone)");
+
+    // CONVOY ROUTES
+    const convoyRoute = [
+      [25, -25],
+      [15, -10],
+      [0, 0],
+      [-10, 10],
+      [-25, 25]
+    ];
+    L.polyline(convoyRoute, {
+      color: "orange",
+      weight: 4,
+      dashArray: "10,5"
+    }).addTo(map).bindPopup("🚚 Primary Convoy Route");
+
+    // SUGGESTED FOB ZONES
+    L.circleMarker([-5, -20], { radius: 8, color: "green" }).addTo(map)
+      .bindPopup("🛠️ Suggested FOB Zone (Woodland Ridge)");
+
+    L.circleMarker([5, 20], { radius: 8, color: "green" }).addTo(map)
+      .bindPopup("🛠️ Suggested FOB Zone (Riverbank)");
+
+    // BIOME ZONES
+    L.rectangle([[30, -40], [10, -10]], { color: "#C2B280", weight: 1 }).addTo(map)
+      .bindPopup("🌵 Desert Region");
+
+    L.rectangle([[-10, -40], [-30, -10]], { color: "#228B22", weight: 1 }).addTo(map)
+      .bindPopup("🌲 Woodland Region");
+
+    L.rectangle([[-30, 10], [-10, 40]], { color: "#808080", weight: 1 }).addTo(map)
+      .bindPopup("⛰️ Mountain Region");
+
+    // LAKE
+    L.circle([10, 30], {
+      radius: 200000,
+      color: "#00bfff",
+      fillColor: "#00bfff",
+      fillOpacity: 0.3
+    }).addTo(map).bindPopup("🌊 Lake");
+
+  </script>
+</body>
+</html>
